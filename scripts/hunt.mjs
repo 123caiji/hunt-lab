@@ -85,7 +85,7 @@ function runNuclei (url, budgetMs) {
     } catch { return { raw: l } }
   })
   try {
-    return dedupe(parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: Math.max(15000, budgetMs - 3000), maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
+    return dedupe(parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: Math.max(15000, budgetMs - 3000), maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] })))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
     return dedupe(parse((e.stdout || '').toString()))
