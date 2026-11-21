@@ -54,6 +54,17 @@ async function probe (t) {
   }
 }
 
+const dedupe = (arr) => {
+  const seen = new Set()
+  return arr.filter((x) => {
+    if (!x.template) return true
+    const k = x.template + '|' + x.matched
+    if (seen.has(k)) return false
+    seen.add(k)
+    return true
+  })
+}
+
 function runNuclei (url, budgetMs) {
   const t0 = Date.now()
   const p = CFG.policy
@@ -65,6 +76,7 @@ function runNuclei (url, budgetMs) {
     '-tags', p.nucleiTags.join(','),
     '-etags', p.nucleiExcludeTags.join(','),
     '-timeout', '8', '-retries', '0', '-duc', '-stats=false',
+    '-et', 'http-missing-security-headers,cookies-without-secure,cookies-without-httponly,missing-cookie-samesite-strict',
   ]
   const parse = (out) => out.split('\n').filter(Boolean).map((l) => {
     try {
@@ -73,10 +85,10 @@ function runNuclei (url, budgetMs) {
     } catch { return { raw: l } }
   })
   try {
-    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: Math.max(15000, budgetMs - 3000), maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
+    return dedupe(parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: Math.max(15000, budgetMs - 3000), maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
-    return parse((e.stdout || '').toString())
+    return dedupe(parse((e.stdout || '').toString()))
   }
 }
 
