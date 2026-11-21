@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T06:29:36.802Z",
+  "generatedAt": "2026-11-21T06:32:52.812Z",
   "targets": 3,
   "reachable": 0,
   "findings": 0,
@@ -7,23 +7,23 @@
     {
       "host": "scanme.nmap.org",
       "url": "https://scanme.nmap.org/",
-      "ms": 308,
+      "ms": 123,
       "ok": false,
-      "error": "fetch failed"
+      "error": "fetch failed (ECONNREFUSED)"
     },
     {
       "host": "testphp.vulnweb.com",
       "url": "https://testphp.vulnweb.com/",
-      "ms": 10495,
+      "ms": 10494,
       "ok": false,
-      "error": "fetch failed"
+      "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
     },
     {
       "host": "testasp.vulnweb.com",
       "url": "https://testasp.vulnweb.com/",
-      "ms": 10494,
+      "ms": 10495,
       "ok": false,
-      "error": "fetch failed"
+      "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
     }
   ]
 }
