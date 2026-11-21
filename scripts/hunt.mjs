@@ -54,7 +54,8 @@ async function probe (host) {
       ok: true,
     }
   } catch (e) {
-    return { host, url, ms: Date.now() - t0, ok: false, error: e.name === 'AbortError' ? 'timeout 20s' : e.message }
+    const cause = e.cause ? (e.cause.code || e.cause.message) : null
+    return { host, url, ms: Date.now() - t0, ok: false, error: e.name === 'AbortError' ? 'timeout 20s' : e.message + (cause ? ' (' + cause + ')' : '') }
   } finally {
     clearTimeout(timer)
   }
