@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-21",
   "policy": {
-    "note": "只允许扫描本文件列出、且明确授权公开测试的主机。不在列表里的目标一律拒绝，脚本会直接报错退出。",
+    "note": "只允许访问本文件列出、且明确公开授权用于安全测试的主机。不在列表里的目标一律拒绝，脚本直接报错。",
     "maxRps": 0.5,
     "nucleiTags": [
       "tech",
@@ -26,17 +26,56 @@
   "targets": [
     {
       "host": "scanme.nmap.org",
-      "why": "Nmap 官方公开扫描测试主机，其页面明确写明允许扫描",
+      "url": "http://scanme.nmap.org/",
+      "why": "Nmap 官方公开扫描测试主机，页面明确允许扫描",
+      "authorized": true
+    },
+    {
+      "host": "scanme.nmap.org",
+      "url": "https://scanme.nmap.org/",
+      "why": "同上（HTTPS）",
       "authorized": true
     },
     {
       "host": "testphp.vulnweb.com",
-      "why": "Acunetix 官方公开漏洞测试站（PHP），供安全工具测试",
+      "url": "http://testphp.vulnweb.com/",
+      "why": "Acunetix 官方公开漏洞测试站（PHP）",
       "authorized": true
     },
     {
       "host": "testasp.vulnweb.com",
+      "url": "http://testasp.vulnweb.com/",
       "why": "Acunetix 官方公开漏洞测试站（ASP）",
+      "authorized": true
+    },
+    {
+      "host": "testaspnet.vulnweb.com",
+      "url": "http://testaspnet.vulnweb.com/",
+      "why": "Acunetix 官方公开漏洞测试站（ASP.NET）",
+      "authorized": true
+    },
+    {
+      "host": "public-firing-range.appspot.com",
+      "url": "https://public-firing-range.appspot.com/",
+      "why": "Google Firing Range，公开的脆弱靶场",
+      "authorized": true
+    },
+    {
+      "host": "ginandjuice.shop",
+      "url": "https://ginandjuice.shop/",
+      "why": "PortSwigger 官方故意脆弱的练习站",
+      "authorized": true
+    },
+    {
+      "host": "pentest-ground.com",
+      "url": "https://pentest-ground.com/",
+      "why": "公开的练习用脆弱靶场",
+      "authorized": true
+    },
+    {
+      "host": "demo.testfire.net",
+      "url": "http://demo.testfire.net/",
+      "why": "IBM AppScan 公开演示站，故意带漏洞",
       "authorized": true
     }
   ]
