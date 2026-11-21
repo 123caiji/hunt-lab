@@ -28,9 +28,9 @@ jobs:
           unzip -o -q nuclei.zip nuclei && sudo mv nuclei /usr/local/bin/ && nuclei -version
       - name: connectivity
         run: |
-          for h in scanme.nmap.org testphp.vulnweb.com testasp.vulnweb.com example.com; do
-            echo "== $h"
-            curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" --max-time 15 "https://$h/" || echo "curl failed $?"
+          for u in $(node -e "const c=require('./config/targets.json');console.log(c.targets.map(t=>t.url).join(' '))"); do
+            echo "== $u"
+            curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" --max-time 15 "$u" || echo "curl failed $?"
           done
       - name: run hunt
         run: node scripts/hunt.mjs
