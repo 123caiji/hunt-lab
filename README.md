@@ -27,6 +27,13 @@
 | testphp.vulnweb.com | Acunetix 官方公开漏洞测试站（PHP） |
 | testasp.vulnweb.com | Acunetix 官方公开漏洞测试站（ASP） |
 
+## 已知不可达（GitHub runner 视角）
+
+- `https://scanme.nmap.org/` → ECONNREFUSED（只认 80）
+- `http://testphp.vulnweb.com/` → 连接超时（runner 出口被拦或站点侧限流）
+
+两个都在白名单里保留着，每次巡检会照常记录为"不可达"，不报错。
+
 ## 你自己怎么改
 
 - 加/删目标：改 `config/targets.json` 的 `targets` 数组，必须带 `authorized: true` 与 `why`
