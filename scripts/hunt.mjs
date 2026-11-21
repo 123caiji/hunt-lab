@@ -72,7 +72,7 @@ function runNuclei (url) {
     } catch { return { raw: l } }
   })
   try {
-    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 120000, maxBuffer: 32 * 1024 * 1024 }))
+    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 120000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
     return parse((e.stdout || '').toString())
