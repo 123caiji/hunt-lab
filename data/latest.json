@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-11-21T06:29:36.802Z",
+  "targets": 3,
+  "reachable": 0,
+  "findings": 0,
+  "results": [
+    {
+      "host": "scanme.nmap.org",
+      "url": "https://scanme.nmap.org/",
+      "ms": 308,
+      "ok": false,
+      "error": "fetch failed"
+    },
+    {
+      "host": "testphp.vulnweb.com",
+      "url": "https://testphp.vulnweb.com/",
+      "ms": 10495,
+      "ok": false,
+      "error": "fetch failed"
+    },
+    {
+      "host": "testasp.vulnweb.com",
+      "url": "https://testasp.vulnweb.com/",
+      "ms": 10494,
+      "ok": false,
+      "error": "fetch failed"
+    }
+  ]
+}
