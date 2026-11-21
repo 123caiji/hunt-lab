@@ -60,8 +60,8 @@ function runNuclei (url) {
   const args = [
     '-u', url,
     '-jsonl', '-silent', '-no-color',
-    '-rl', '10', '-c', '3', '-bs', '10',
-    '-severity', p.nucleiSeverity.join(','),
+    '-rl', '100', '-c', '25', '-bs', '25', '-ni',
+    '-severity', 'info,low,medium,high,critical',
     '-tags', p.nucleiTags.join(','),
     '-etags', p.nucleiExcludeTags.join(','),
     '-timeout', '8', '-retries', '0', '-duc', '-stats=false',
@@ -73,7 +73,7 @@ function runNuclei (url) {
     } catch { return { raw: l } }
   })
   try {
-    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 90000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
+    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 150000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
     return parse((e.stdout || '').toString())
