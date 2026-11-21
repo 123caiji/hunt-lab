@@ -55,6 +55,7 @@ async function probe (t) {
 }
 
 function runNuclei (url) {
+  const t0 = Date.now()
   const p = CFG.policy
   const args = [
     '-u', url,
@@ -63,7 +64,7 @@ function runNuclei (url) {
     '-severity', p.nucleiSeverity.join(','),
     '-tags', p.nucleiTags.join(','),
     '-etags', p.nucleiExcludeTags.join(','),
-    '-timeout', '10', '-retries', '1',
+    '-timeout', '8', '-retries', '0', '-duc', '-stats=false',
   ]
   const parse = (out) => out.split('\n').filter(Boolean).map((l) => {
     try {
@@ -72,7 +73,7 @@ function runNuclei (url) {
     } catch { return { raw: l } }
   })
   try {
-    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 120000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
+    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 90000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
     return parse((e.stdout || '').toString())
@@ -82,16 +83,20 @@ function runNuclei (url) {
 const results = []
 for (const t of CFG.targets) {
   if (!t.authorized) { console.log('skip(未授权) ' + t.host); continue }
-  console.log('probe ' + t.url)
-  results.push(await probe(t))
+  const t0 = Date.now()
+  console.log('[' + new Date().toISOString().slice(11, 19) + '] probe ' + t.url)
+  const r = await probe(t)
+  console.log('    -> ' + (r.ok ? r.status + ' ' + r.ms + 'ms' : 'ERR ' + r.error))
+  results.push(r)
   await sleep(GAP_MS)
 }
 
 if (!NO_NUCLEI) {
   for (const r of results) {
     if (!r.ok || r.status >= 400) continue
-    console.log('nuclei ' + r.url)
+    console.log('[' + new Date().toISOString().slice(11, 19) + '] nuclei ' + r.url)
     r.nuclei = runNuclei(r.url)
+    console.log('    -> ' + (r.nuclei || []).filter((x) => x.template).length + ' hits, ' + (Date.now() - t0) + 'ms')
     await sleep(GAP_MS)
   }
 }
