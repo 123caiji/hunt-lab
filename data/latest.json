@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-21T06:59:44.356Z",
+  "generatedAt": "2026-11-21T07:11:00.303Z",
   "targets": 9,
   "reachable": 7,
-  "findings": 1,
+  "findings": 59,
   "results": [
     {
       "host": "scanme.nmap.org",
       "url": "http://scanme.nmap.org/",
       "status": 200,
-      "ms": 168,
+      "ms": 101,
       "title": "Go ahead and ScanMe!",
       "server": "Apache/2.4.7 (Ubuntu)",
       "missingHeaders": [
@@ -23,19 +23,75 @@
         "server: Apache/2.4.7 (Ubuntu)"
       ],
       "ok": true,
-      "nuclei": []
+      "nuclei": [
+        {
+          "template": "apache-mod-negotiation-listing",
+          "severity": "low",
+          "matched": "http://scanme.nmap.org/index"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://scanme.nmap.org/"
+        }
+      ]
     },
     {
       "host": "scanme.nmap.org",
       "url": "https://scanme.nmap.org/",
-      "ms": 87,
+      "ms": 53,
       "ok": false,
       "error": "fetch failed (ECONNREFUSED)"
     },
     {
       "host": "testphp.vulnweb.com",
       "url": "http://testphp.vulnweb.com/",
-      "ms": 10495,
+      "ms": 10494,
       "ok": false,
       "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
     },
@@ -43,7 +99,7 @@
       "host": "testasp.vulnweb.com",
       "url": "http://testasp.vulnweb.com/",
       "status": 200,
-      "ms": 210,
+      "ms": 102,
       "title": "acuforum forums",
       "server": "Microsoft-IIS/8.5",
       "missingHeaders": [
@@ -59,13 +115,79 @@
         "x-powered-by: ASP.NET"
       ],
       "ok": true,
-      "nuclei": []
+      "nuclei": [
+        {
+          "template": "cookies-without-httponly",
+          "severity": "info",
+          "matched": "testasp.vulnweb.com"
+        },
+        {
+          "template": "cookies-without-secure",
+          "severity": "info",
+          "matched": "testasp.vulnweb.com"
+        },
+        {
+          "template": "missing-cookie-samesite-strict",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testasp.vulnweb.com/"
+        }
+      ]
     },
     {
       "host": "testaspnet.vulnweb.com",
       "url": "http://testaspnet.vulnweb.com/",
       "status": 200,
-      "ms": 297,
+      "ms": 126,
       "title": "acublog news",
       "server": "Microsoft-IIS/8.5",
       "missingHeaders": [
@@ -82,13 +204,79 @@
         "x-aspnet-version: 2.0.50727"
       ],
       "ok": true,
-      "nuclei": []
+      "nuclei": [
+        {
+          "template": "aspx-debug-mode",
+          "severity": "medium",
+          "matched": "http://testaspnet.vulnweb.com/Foobar-debug.aspx"
+        },
+        {
+          "template": "cookies-without-secure",
+          "severity": "info",
+          "matched": "testaspnet.vulnweb.com"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        },
+        {
+          "template": "missing-cookie-samesite-strict",
+          "severity": "info",
+          "matched": "http://testaspnet.vulnweb.com/"
+        }
+      ]
     },
     {
       "host": "public-firing-range.appspot.com",
       "url": "https://public-firing-range.appspot.com/",
       "status": 200,
-      "ms": 87,
+      "ms": 130,
       "title": "Firing Range",
       "server": "Google Frontend",
       "missingHeaders": [
@@ -103,13 +291,64 @@
         "server: Google Frontend"
       ],
       "ok": true,
-      "nuclei": []
+      "nuclei": [
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://public-firing-range.appspot.com/"
+        }
+      ]
     },
     {
       "host": "ginandjuice.shop",
       "url": "https://ginandjuice.shop/",
       "status": 200,
-      "ms": 293,
+      "ms": 607,
       "title": "Home - Gin &amp; Juice Shop",
       "server": null,
       "missingHeaders": [
@@ -121,13 +360,74 @@
       ],
       "banner": [],
       "ok": true,
-      "nuclei": []
+      "nuclei": [
+        {
+          "template": "cookies-without-secure",
+          "severity": "info",
+          "matched": "ginandjuice.shop"
+        },
+        {
+          "template": "cookies-without-httponly",
+          "severity": "info",
+          "matched": "ginandjuice.shop"
+        },
+        {
+          "template": "missing-cookie-samesite-strict",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        },
+        {
+          "template": "http-missing-security-headers",
+          "severity": "info",
+          "matched": "https://ginandjuice.shop/"
+        }
+      ]
     },
     {
       "host": "pentest-ground.com",
       "url": "https://pentest-ground.com/",
       "status": 200,
-      "ms": 305,
+      "ms": 508,
       "title": "Pentest-Ground",
       "server": "nginx/1.31.9",
       "missingHeaders": [
@@ -148,7 +448,7 @@
       "host": "demo.testfire.net",
       "url": "http://demo.testfire.net/",
       "status": 200,
-      "ms": 123,
+      "ms": 174,
       "title": "Altoro Mutual",
       "server": "Apache-Coyote/1.1",
       "missingHeaders": [
@@ -165,9 +465,7 @@
       "ok": true,
       "nuclei": [
         {
-          "template": "swagger-api",
-          "severity": "info",
-          "matched": "http://demo.testfire.net//swagger/index.html"
+          "note": "总时间预算用完，本轮跳过"
         }
       ]
     }
