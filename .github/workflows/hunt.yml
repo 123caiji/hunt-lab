@@ -26,6 +26,12 @@ jobs:
           V=$(curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest | jq -r .tag_name | tr -d v)
           curl -sL -o nuclei.zip "https://github.com/projectdiscovery/nuclei/releases/download/v${V}/nuclei_${V}_linux_amd64.zip"
           unzip -o -q nuclei.zip nuclei && sudo mv nuclei /usr/local/bin/ && nuclei -version
+      - name: connectivity
+        run: |
+          for h in scanme.nmap.org testphp.vulnweb.com testasp.vulnweb.com example.com; do
+            echo "== $h"
+            curl -s -o /dev/null -w "%{http_code} %{time_total}s\n" --max-time 15 "https://$h/" || echo "curl failed $?"
+          done
       - name: run hunt
         run: node scripts/hunt.mjs
       - name: commit results
