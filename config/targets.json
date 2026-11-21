@@ -1,0 +1,43 @@
+{
+  "updated": "2026-11-21",
+  "policy": {
+    "note": "只允许扫描本文件列出、且明确授权公开测试的主机。不在列表里的目标一律拒绝，脚本会直接报错退出。",
+    "maxRps": 0.5,
+    "nucleiTags": [
+      "tech",
+      "exposure",
+      "misconfig"
+    ],
+    "nucleiExcludeTags": [
+      "intrusive",
+      "fuzz",
+      "dos",
+      "brute-force",
+      "headless",
+      "file",
+      "default-login"
+    ],
+    "nucleiSeverity": [
+      "info",
+      "low",
+      "medium"
+    ]
+  },
+  "targets": [
+    {
+      "host": "scanme.nmap.org",
+      "why": "Nmap 官方公开扫描测试主机，其页面明确写明允许扫描",
+      "authorized": true
+    },
+    {
+      "host": "testphp.vulnweb.com",
+      "why": "Acunetix 官方公开漏洞测试站（PHP），供安全工具测试",
+      "authorized": true
+    },
+    {
+      "host": "testasp.vulnweb.com",
+      "why": "Acunetix 官方公开漏洞测试站（ASP）",
+      "authorized": true
+    }
+  ]
+}
