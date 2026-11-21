@@ -1,29 +1,175 @@
 {
-  "generatedAt": "2026-11-21T06:32:52.812Z",
-  "targets": 3,
-  "reachable": 0,
-  "findings": 0,
+  "generatedAt": "2026-11-21T06:59:44.356Z",
+  "targets": 9,
+  "reachable": 7,
+  "findings": 1,
   "results": [
     {
       "host": "scanme.nmap.org",
+      "url": "http://scanme.nmap.org/",
+      "status": 200,
+      "ms": 168,
+      "title": "Go ahead and ScanMe!",
+      "server": "Apache/2.4.7 (Ubuntu)",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: Apache/2.4.7 (Ubuntu)"
+      ],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "scanme.nmap.org",
       "url": "https://scanme.nmap.org/",
-      "ms": 123,
+      "ms": 87,
       "ok": false,
       "error": "fetch failed (ECONNREFUSED)"
     },
     {
       "host": "testphp.vulnweb.com",
-      "url": "https://testphp.vulnweb.com/",
-      "ms": 10494,
+      "url": "http://testphp.vulnweb.com/",
+      "ms": 10495,
       "ok": false,
       "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
     },
     {
       "host": "testasp.vulnweb.com",
-      "url": "https://testasp.vulnweb.com/",
-      "ms": 10495,
-      "ok": false,
-      "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+      "url": "http://testasp.vulnweb.com/",
+      "status": 200,
+      "ms": 210,
+      "title": "acuforum forums",
+      "server": "Microsoft-IIS/8.5",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: Microsoft-IIS/8.5",
+        "x-powered-by: ASP.NET"
+      ],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "testaspnet.vulnweb.com",
+      "url": "http://testaspnet.vulnweb.com/",
+      "status": 200,
+      "ms": 297,
+      "title": "acublog news",
+      "server": "Microsoft-IIS/8.5",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: Microsoft-IIS/8.5",
+        "x-powered-by: ASP.NET",
+        "x-aspnet-version: 2.0.50727"
+      ],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "public-firing-range.appspot.com",
+      "url": "https://public-firing-range.appspot.com/",
+      "status": 200,
+      "ms": 87,
+      "title": "Firing Range",
+      "server": "Google Frontend",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: Google Frontend"
+      ],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "ginandjuice.shop",
+      "url": "https://ginandjuice.shop/",
+      "status": 200,
+      "ms": 293,
+      "title": "Home - Gin &amp; Juice Shop",
+      "server": null,
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "pentest-ground.com",
+      "url": "https://pentest-ground.com/",
+      "status": 200,
+      "ms": 305,
+      "title": "Pentest-Ground",
+      "server": "nginx/1.31.9",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: nginx/1.31.9"
+      ],
+      "ok": true,
+      "nuclei": []
+    },
+    {
+      "host": "demo.testfire.net",
+      "url": "http://demo.testfire.net/",
+      "status": 200,
+      "ms": 123,
+      "title": "Altoro Mutual",
+      "server": "Apache-Coyote/1.1",
+      "missingHeaders": [
+        "strict-transport-security",
+        "content-security-policy",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy"
+      ],
+      "banner": [
+        "server: Apache-Coyote/1.1"
+      ],
+      "ok": true,
+      "nuclei": [
+        {
+          "template": "swagger-api",
+          "severity": "info",
+          "matched": "http://demo.testfire.net//swagger/index.html"
+        }
+      ]
     }
   ]
 }
