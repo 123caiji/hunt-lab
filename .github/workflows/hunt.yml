@@ -25,7 +25,10 @@ jobs:
         run: |
           V=$(curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest | jq -r .tag_name | tr -d v)
           curl -sL -o nuclei.zip "https://github.com/projectdiscovery/nuclei/releases/download/v${V}/nuclei_${V}_linux_amd64.zip"
-          unzip -o -q nuclei.zip nuclei && sudo mv nuclei /usr/local/bin/ && nuclei -version
+          unzip -o -q nuclei.zip nuclei && sudo mv nuclei /usr/local/bin/
+          nuclei -version
+          nuclei -update-templates -silent || true
+          ls ~/nuclei-templates | head -5
       - name: connectivity
         run: |
           for u in $(node -e "const c=require('./config/targets.json');console.log(c.targets.map(t=>t.url).join(' '))"); do
