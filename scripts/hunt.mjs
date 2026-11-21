@@ -94,9 +94,10 @@ for (const t of CFG.targets) {
 if (!NO_NUCLEI) {
   for (const r of results) {
     if (!r.ok || r.status >= 400) continue
+    const n0 = Date.now()
     console.log('[' + new Date().toISOString().slice(11, 19) + '] nuclei ' + r.url)
     r.nuclei = runNuclei(r.url)
-    console.log('    -> ' + (r.nuclei || []).filter((x) => x.template).length + ' hits, ' + (Date.now() - t0) + 'ms')
+    console.log('    -> ' + (r.nuclei || []).filter((x) => x.template).length + ' hits, ' + (Date.now() - n0) + 'ms')
     await sleep(GAP_MS)
   }
 }
