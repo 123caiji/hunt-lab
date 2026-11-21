@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>hunt-lab · 授权靶场巡检</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--fg:#e6edf3;--dim:#8b949e;--ok:#3fb950;--warn:#d29922;--bad:#f85149;--link:#58a6ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 -apple-system,"Segoe UI",Roboto,"Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 60px}
+h1{font-size:20px;margin:0 0 6px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:8px}
+.rule{border-top:1px solid var(--line);margin:18px 0}
+.stats{display:flex;gap:22px;flex-wrap:wrap;margin:14px 0 4px}
+.stats b{font-size:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0}
+.card h2{font-size:15px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+.kv{color:var(--dim);font-size:13px}
+code{background:#1f242c;padding:1px 5px;border-radius:4px;font-size:12px}
+.hit{color:var(--warn)}
+a{color:var(--link);text-decoration:none}
+footer{color:var(--dim);font-size:12px;margin-top:30px}
+</style></head>
+<body><div class="wrap">
+<h1>hunt-lab</h1>
+<div class="sub">白名单授权靶场巡检 · 每周一次 · 只读侦察 + nuclei 安全模板</div>
+<div id="stats" class="stats"></div>
+<div class="rule"></div>
+<div id="list"><div class="kv">loading…</div></div>
+<footer>目标只来自 <a href="https://github.com/123caiji/hunt-lab/blob/main/config/targets.json">config/targets.json</a>，不在白名单的主机脚本直接拒绝。</footer>
+</div>
+<script>
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))
+fetch('./data/latest.json', { cache: 'no-store' }).then(r => r.json()).then(d => {
+  const t = d.targets || 0, re = d.reachable || 0, f = d.findings || 0
+  document.getElementById('stats').innerHTML = [
+    '<div><b>' + t + '</b> <span class="kv">目标</span></div>',
+    '<div><b>' + re + '</b> <span class="kv">可达</span></div>',
+    '<div><b>' + f + '</b> <span class="kv">nuclei 命中</span></div>',
+    '<div><b>' + String(d.generatedAt || '').replace('T', ' ').slice(0, 16) + 'Z</b> <span class="kv">上次巡检</span></div>'
+  ].join('')
+  document.getElementById('list').innerHTML = (d.results || []).map(r => {
+    if (!r.ok) return '<div class="card"><h2><span class="dot bad"></span>' + esc(r.host) + '</h2><div class="kv">不可达：' + esc(r.error) + '</div></div>'
+    const hits = (r.nuclei || []).filter(x => x.template)
+    const miss = r.missingHeaders || []
+    const ban = r.banner || []
+    return '<div class="card"><h2><span class="dot ok"></span>' + esc(r.host) + '</h2>' +
+      '<div class="kv">' + esc(r.url) + ' → ' + r.status + ' · ' + r.ms + 'ms' + (r.server ? ' · <code>' + esc(r.server) + '</code>' : '') + '</div>' +
+      (r.title ? '<div class="kv">标题：' + esc(r.title) + '</div>' : '') +
+      (ban.length ? '<div class="kv">指纹：' + ban.map(esc).join('；') + '</div>' : '') +
+      (miss.length ? '<div class="kv">缺安全头：' + miss.map(esc).join(', ') + '</div>' : '') +
+      (hits.length ? hits.map(h => '<div class="hit">[' + esc(h.severity) + '] ' + esc(h.template) + ' @ ' + esc(h.matched) + '</div>').join('') : '') +
+      '</div>'
+  }).join('')
+}).catch(e => { document.getElementById('list').innerHTML = '<div class="kv">数据还没跑出来：' + esc(e.message) + '</div>' })
+</script></body></html>
