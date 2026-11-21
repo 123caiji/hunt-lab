@@ -54,7 +54,7 @@ async function probe (t) {
   }
 }
 
-function runNuclei (url) {
+function runNuclei (url, budgetMs) {
   const t0 = Date.now()
   const p = CFG.policy
   const args = [
@@ -73,7 +73,7 @@ function runNuclei (url) {
     } catch { return { raw: l } }
   })
   try {
-    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: 150000, maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
+    return parse(execFileSync('nuclei', args, { encoding: 'utf8', timeout: Math.max(15000, budgetMs - 3000), maxBuffer: 32 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }))
   } catch (e) {
     if (e.code === 'ENOENT') return [{ note: 'nuclei 未安装，跳过模板检测' }]
     return parse((e.stdout || '').toString())
@@ -92,11 +92,14 @@ for (const t of CFG.targets) {
 }
 
 if (!NO_NUCLEI) {
+  const nucleiDeadline = Date.now() + (Number(process.env.NUCLEI_BUDGET_MS) || 300000)
   for (const r of results) {
     if (!r.ok || r.status >= 400) continue
+    const left = nucleiDeadline - Date.now()
+    if (left < 20000) { r.nuclei = [{ note: '总时间预算用完，本轮跳过' }]; console.log('skip nuclei (budget): ' + r.url); continue }
     const n0 = Date.now()
-    console.log('[' + new Date().toISOString().slice(11, 19) + '] nuclei ' + r.url)
-    r.nuclei = runNuclei(r.url)
+    console.log('[' + new Date().toISOString().slice(11, 19) + '] nuclei ' + r.url + ' (budget ' + Math.round(left / 1000) + 's)')
+    r.nuclei = runNuclei(r.url, Math.min(120000, left))
     console.log('    -> ' + (r.nuclei || []).filter((x) => x.template).length + ' hits, ' + (Date.now() - n0) + 'ms')
     await sleep(GAP_MS)
   }
