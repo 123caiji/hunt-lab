@@ -1,82 +1,27 @@
 {
-  "generatedAt": "2026-11-21T07:17:58.555Z",
+  "generatedAt": "2026-11-23T01:13:03.547Z",
   "targets": 9,
-  "reachable": 7,
-  "findings": 22,
+  "reachable": 5,
+  "findings": 14,
   "results": [
     {
       "host": "scanme.nmap.org",
       "url": "http://scanme.nmap.org/",
-      "status": 200,
-      "ms": 150,
-      "title": "Go ahead and ScanMe!",
-      "server": "Apache/2.4.7 (Ubuntu)",
-      "missingHeaders": [
-        "strict-transport-security",
-        "content-security-policy",
-        "x-frame-options",
-        "x-content-type-options",
-        "referrer-policy",
-        "permissions-policy"
-      ],
-      "banner": [
-        "server: Apache/2.4.7 (Ubuntu)"
-      ],
-      "ok": true,
-      "nuclei": [
-        {
-          "template": "apache-mod-negotiation-listing",
-          "severity": "low",
-          "matched": "http://scanme.nmap.org/index"
-        },
-        {
-          "template": "ssh-diffie-hellman-logjam",
-          "severity": "low",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "ssh-sha1-hmac-algo",
-          "severity": "info",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "ssh-cbc-mode-ciphers",
-          "severity": "low",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "ssh-weak-algo-supported",
-          "severity": "medium",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "ssh-weak-mac-algo",
-          "severity": "low",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "ssh-weakkey-exchange-algo",
-          "severity": "low",
-          "matched": "scanme.nmap.org:22"
-        },
-        {
-          "template": "http-missing-security-headers",
-          "severity": "info",
-          "matched": "http://scanme.nmap.org/"
-        }
-      ]
+      "ms": 289,
+      "ok": false,
+      "error": "fetch failed (ETIMEDOUT)"
     },
     {
       "host": "scanme.nmap.org",
       "url": "https://scanme.nmap.org/",
-      "ms": 76,
+      "ms": 78,
       "ok": false,
       "error": "fetch failed (ECONNREFUSED)"
     },
     {
       "host": "testphp.vulnweb.com",
       "url": "http://testphp.vulnweb.com/",
-      "ms": 10496,
+      "ms": 10495,
       "ok": false,
       "error": "fetch failed (UND_ERR_CONNECT_TIMEOUT)"
     },
@@ -84,7 +29,7 @@
       "host": "testasp.vulnweb.com",
       "url": "http://testasp.vulnweb.com/",
       "status": 200,
-      "ms": 147,
+      "ms": 144,
       "title": "acuforum forums",
       "server": "Microsoft-IIS/8.5",
       "missingHeaders": [
@@ -112,12 +57,12 @@
           "matched": "testasp.vulnweb.com"
         },
         {
-          "template": "missing-cookie-samesite-strict",
+          "template": "http-missing-security-headers",
           "severity": "info",
           "matched": "http://testasp.vulnweb.com/"
         },
         {
-          "template": "http-missing-security-headers",
+          "template": "missing-cookie-samesite-strict",
           "severity": "info",
           "matched": "http://testasp.vulnweb.com/"
         }
@@ -127,7 +72,7 @@
       "host": "testaspnet.vulnweb.com",
       "url": "http://testaspnet.vulnweb.com/",
       "status": 200,
-      "ms": 198,
+      "ms": 247,
       "title": "acublog news",
       "server": "Microsoft-IIS/8.5",
       "missingHeaders": [
@@ -156,12 +101,12 @@
           "matched": "testaspnet.vulnweb.com"
         },
         {
-          "template": "missing-cookie-samesite-strict",
+          "template": "http-missing-security-headers",
           "severity": "info",
           "matched": "http://testaspnet.vulnweb.com/"
         },
         {
-          "template": "http-missing-security-headers",
+          "template": "missing-cookie-samesite-strict",
           "severity": "info",
           "matched": "http://testaspnet.vulnweb.com/"
         }
@@ -171,7 +116,7 @@
       "host": "public-firing-range.appspot.com",
       "url": "https://public-firing-range.appspot.com/",
       "status": 200,
-      "ms": 284,
+      "ms": 81,
       "title": "Firing Range",
       "server": "Google Frontend",
       "missingHeaders": [
@@ -186,19 +131,13 @@
         "server: Google Frontend"
       ],
       "ok": true,
-      "nuclei": [
-        {
-          "template": "http-missing-security-headers",
-          "severity": "info",
-          "matched": "https://public-firing-range.appspot.com/"
-        }
-      ]
+      "nuclei": []
     },
     {
       "host": "ginandjuice.shop",
       "url": "https://ginandjuice.shop/",
       "status": 200,
-      "ms": 443,
+      "ms": 426,
       "title": "Home - Gin &amp; Juice Shop",
       "server": null,
       "missingHeaders": [
@@ -222,12 +161,12 @@
           "matched": "ginandjuice.shop"
         },
         {
-          "template": "http-missing-security-headers",
+          "template": "missing-cookie-samesite-strict",
           "severity": "info",
           "matched": "https://ginandjuice.shop/"
         },
         {
-          "template": "missing-cookie-samesite-strict",
+          "template": "http-missing-security-headers",
           "severity": "info",
           "matched": "https://ginandjuice.shop/"
         }
@@ -237,7 +176,7 @@
       "host": "pentest-ground.com",
       "url": "https://pentest-ground.com/",
       "status": 200,
-      "ms": 423,
+      "ms": 347,
       "title": "Pentest-Ground",
       "server": "nginx/1.31.9",
       "missingHeaders": [
@@ -254,6 +193,11 @@
       "ok": true,
       "nuclei": [
         {
+          "template": "missing-sri",
+          "severity": "info",
+          "matched": "https://pentest-ground.com/"
+        },
+        {
           "template": "http-missing-security-headers",
           "severity": "info",
           "matched": "https://pentest-ground.com/"
@@ -263,27 +207,9 @@
     {
       "host": "demo.testfire.net",
       "url": "http://demo.testfire.net/",
-      "status": 200,
-      "ms": 58,
-      "title": "Altoro Mutual",
-      "server": "Apache-Coyote/1.1",
-      "missingHeaders": [
-        "strict-transport-security",
-        "content-security-policy",
-        "x-frame-options",
-        "x-content-type-options",
-        "referrer-policy",
-        "permissions-policy"
-      ],
-      "banner": [
-        "server: Apache-Coyote/1.1"
-      ],
-      "ok": true,
-      "nuclei": [
-        {
-          "note": "总时间预算用完，本轮跳过"
-        }
-      ]
+      "ms": 30,
+      "ok": false,
+      "error": "fetch failed (ECONNREFUSED)"
     }
   ]
 }
